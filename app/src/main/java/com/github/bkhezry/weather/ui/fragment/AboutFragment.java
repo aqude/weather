@@ -1,5 +1,6 @@
 package com.github.bkhezry.weather.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -47,7 +48,7 @@ public class AboutFragment extends DialogFragment {
     currentLanguage = MyApplication.localeManager.getLanguage();
     activity = getActivity();
     if (activity != null) {
-      Drawable drawable = activity.getResources().getDrawable(R.drawable.ic_done_black_24dp);
+      @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = activity.getResources().getDrawable(R.drawable.ic_done_black_24dp);
       String versionName = "";
       try {
         versionName = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionName;
@@ -61,8 +62,10 @@ public class AboutFragment extends DialogFragment {
       setTextWithLinks(view.findViewById(R.id.text_license), getString(R.string.license_text));
       if (currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
         binding.englishButton.setIcon(drawable);
-      } else {
+      } else if (currentLanguage.equals(LocaleManager.LANGUAGE_PERSIAN)) {
         binding.persianButton.setIcon(drawable);
+      } else {
+        binding.russianButton.setIcon(drawable);
       }
     }
     binding.nightModeSwitch.setChecked(SharedPreferencesUtil.getInstance(activity).isDarkThemeEnabled());
@@ -80,45 +83,34 @@ public class AboutFragment extends DialogFragment {
         activity.recreate();
       }
     });
-    binding.closeButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        dismiss();
-        if (getFragmentManager() != null) {
-          getFragmentManager().popBackStack();
-        }
+    binding.closeButton.setOnClickListener(v -> {
+      dismiss();
+      if (getFragmentManager() != null) {
+        getFragmentManager().popBackStack();
       }
     });
-    binding.englishButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (currentLanguage.equals(LocaleManager.LANGUAGE_PERSIAN)) {
-          MyApplication.localeManager.setNewLocale(activity, LocaleManager.LANGUAGE_ENGLISH);
-          restartActivity();
-        }
+    binding.englishButton.setOnClickListener(v -> {
+      if (!currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
+        MyApplication.localeManager.setNewLocale(activity, LocaleManager.LANGUAGE_ENGLISH);
+        restartActivity();
       }
     });
-    binding.persianButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
-          MyApplication.localeManager.setNewLocale(activity, LocaleManager.LANGUAGE_PERSIAN);
-          restartActivity();
-        }
+
+    binding.russianButton.setOnClickListener(v -> {
+      if (!currentLanguage.equals(LocaleManager.LANGUAGE_RUSSIAN)) {
+        MyApplication.localeManager.setNewLocale(activity, LocaleManager.LANGUAGE_RUSSIAN);
+        restartActivity();
       }
     });
-    binding.toggleInfoButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        toggleView();
+
+    binding.persianButton.setOnClickListener(v -> {
+      if (!currentLanguage.equals(LocaleManager.LANGUAGE_PERSIAN)) {
+        MyApplication.localeManager.setNewLocale(activity, LocaleManager.LANGUAGE_PERSIAN);
+        restartActivity();
       }
     });
-    binding.toggleInfoLayout.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        toggleView();
-      }
-    });
+    binding.toggleInfoButton.setOnClickListener(v -> toggleView());
+    binding.toggleInfoLayout.setOnClickListener(v -> toggleView());
   }
 
   private void toggleView() {
