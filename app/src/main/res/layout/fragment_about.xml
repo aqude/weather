@@ -19,7 +19,8 @@
         app:backgroundTint="?attr/colorPrimary"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_close_black_24dp"
-        app:tint="?attr/colorControlNormal" />
+        app:tint="?attr/colorControlNormal"
+        android:contentDescription="@string/close_button_description" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view"
@@ -50,6 +51,19 @@
                     android:layout_marginBottom="@dimen/spacing_middle"
                     android:gravity="center"
                     android:text="@string/english_label"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/grey_10" />
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/russian_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    android:gravity="center"
+                    android:text="@string/russian_label"
                     android:textAllCaps="false"
                     app:backgroundTint="@color/grey_10" />
 
@@ -114,7 +128,8 @@
                             android:layout_width="?attr/actionBarSize"
                             android:layout_height="?attr/actionBarSize"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            android:contentDescription="@string/down_button_description" />
 
                     </LinearLayout>
 
