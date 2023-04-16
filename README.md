@@ -15,7 +15,7 @@
 - Use [OpenWeatherMap] API
 - Use Material Design 2
 - Dark Mode
-- Support two language. English & Persian
+- Support three language. English & Persian & Russian
 - Use locale Database
 
 **Demo** application is available in [Release]
